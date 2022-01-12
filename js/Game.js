@@ -151,15 +151,17 @@ class Game {
       this.showLife();
       this.showLeaderboard();
 
-      //index of the array
+      // Índice del arreglo
       var index = 0;
       for (var plr in allPlayers) {
-        //add 1 to the index for every loop
+        // Agrega 1 al índice por cada ciclo
         index = index + 1;
 
-        //use data form the database to display the cars in x and y direction
+        // Usa datos de la base de datos para mostrar los autos en dirección x y y
         var x = allPlayers[plr].positionX;
         var y = height - allPlayers[plr].positionY;
+        
+        // Guarda el valor de player.life en la variable temporal "currentlife"
         var currentlife = allPlayers[plr].life;
 
         if (currentlife <= 0) {

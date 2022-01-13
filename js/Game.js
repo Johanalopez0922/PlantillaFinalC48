@@ -8,9 +8,9 @@ class Game {
     this.leader1 = createElement("h2");
     this.leader2 = createElement("h2");
     this.playerMoving = false;
-    //C41//TA
+    //C41//AM
     this.leftKeyActive = false;
-    this.blast = false; //C42//SA
+    this.blast = false; //C42//AN
 
   }
 
@@ -36,12 +36,12 @@ class Game {
     car1 = createSprite(width / 2 - 50, height - 100);
     car1.addImage("car1", car1_img);
     car1.scale = 0.07;
-    car1.addImage("blast", blastImage); //C42 //SA
+    car1.addImage("blast", blastImage); //C42 //AA
 
     car2 = createSprite(width / 2 + 100, height - 100);
     car2.addImage("car2", car2_img);
     car2.scale = 0.07;
-    car2.addImage("blast", blastImage); //C42//SA
+    car2.addImage("blast", blastImage); //C42//AA
 
     cars = [car1, car2];
 
@@ -69,13 +69,13 @@ class Game {
       { x: width / 2 - 180, y: height - 5500, image: obstacle2Image }
     ];
 
-    // Adding fuel sprite in the game
+    // Añadiendo sprite de combustible en el juego.
     this.addSprites(fuels, 4, fuelImage, 0.02);
 
-    // Adding coin sprite in the game
+    // Añadiendo sprite de moneda en el juego.
     this.addSprites(powerCoins, 18, powerCoinImage, 0.09);
 
-    //Adding obstacles sprite in the game
+    //Añadiendo sprite de obstáculos en el juego.
     this.addSprites(
       obstacle1,
       obstacle1Positions.length,
@@ -92,12 +92,12 @@ class Game {
     );
   }
 
-  //C41 //SA
+  //C41 //AA
   addSprites(spriteGroup, numberOfSprites, spriteImage, scale, positions = []) {
     for (var i = 0; i < numberOfSprites; i++) {
       var x, y;
 
-      //C41 //SA
+      //C41 //AA
       if (positions.length > 0) {
         x = positions[i].x;
         y = positions[i].y;
@@ -119,14 +119,14 @@ class Game {
     form.titleImg.position(40, 50);
     form.titleImg.class("gameTitleAfterEffect");
 
-    this.resetTitle.html("Reset Game");
+    this.resetTitle.html("Reiniciar juego");
     this.resetTitle.class("resetText");
     this.resetTitle.position(width / 2 + 200, 40);
 
     this.resetButton.class("resetButton");
     this.resetButton.position(width / 2 + 230, 100);
 
-    this.leadeboardTitle.html("Leaderboard");
+    this.leadeboardTitle.html("Tablero de líderes");
     this.leadeboardTitle.class("resetText");
     this.leadeboardTitle.position(width / 3 - 60, 40);
 
@@ -178,13 +178,13 @@ class Game {
 
           this.handleFuel(index);
           this.handlePowerCoins(index);
-          this.handleObstacleCollision(index); //C41//SA
+          this.handleObstacleCollision(index); //C41//AA
           if (player.life <= 0) {
             this.blast = true;
             this.playerMoving = false;
           }
 
-          // Changing camera position in y direction
+          // Cambiando la posición de la cámara en dirección y.
           camera.position.y = cars[index - 1].position.y;
         }
       }
@@ -194,10 +194,10 @@ class Game {
         player.update();
       }
 
-      // handling keyboard events
+      // Manipulando los eventos del teclado.
       this.handlePlayerControls();
 
-      // Finshing Line
+      // Línea de meta
       const finshLine = height * 6 - 100;
 
       if (player.positionY > finshLine) {
@@ -213,15 +213,15 @@ class Game {
   }
 
   handleFuel(index) {
-    // Adding fuel
+    // Añadiendo combustible
     cars[index - 1].overlap(fuels, function(collector, collected) {
       player.fuel = 185;
-      //collected is the sprite in the group collectibles that triggered
-      //the event
+      //"collected" es el sprite en el grupo de coleccionables que desencadenaron
+      //el evento
       collected.remove();
     });
 
-    // Reducing Player car fuel
+    // Reduciendo el combustible del auto del jugador.
     if (player.fuel > 0 && this.playerMoving) {
       player.fuel -= 0.3;
     }
@@ -236,8 +236,8 @@ class Game {
     cars[index - 1].overlap(powerCoins, function(collector, collected) {
       player.score += 21;
       player.update();
-      //collected is the sprite in the group collectibles that triggered
-      //the event
+       //"collected" es el sprite en el grupo de coleccionables que desencadenaron
+      //el evento
       collected.remove();
     });
   }
@@ -283,7 +283,7 @@ class Game {
       (players[0].rank === 0 && players[1].rank === 0) ||
       players[0].rank === 1
     ) {
-      // &emsp;    This tag is used for displaying four spaces.
+      // &emsp;    Esta etiqueta se utiliza para mostrar cuatro espacios.
       leader1 =
         players[0].rank +
         "&emsp;" +
@@ -342,19 +342,19 @@ class Game {
     }
   }
   }
-  //C41 //SA
+  //C41 //AA
   handleObstacleCollision(index) {
     if(cars[index-1].collide(obstacle1)||cars[index-1].collide(obstacle2)){
 
-      //C41 //TA
+      //C41 //AM
       if (this.leftKeyActive) {
         player.positionX += 100;
       } else {
         player.positionX -= 100;
       }
 
-      //C41 //SA
-      //Reducing Player Life
+      //C41 //AA
+      //Reduciendo la vida del jugador.
       if (player.life > 0) {
         player.life -= 185 / 4;
       }
@@ -365,8 +365,8 @@ class Game {
 
   showRank() {
     swal({
-      title: `Awesome!${"\n"}Rank${"\n"}${player.rank}`,
-      text: "You reached the finish line successfully",
+      title: `¡Impresionante!${"\n"}Posición${"\n"}${player.rank}`,
+      text: "Llegaste a la línea de meta exitosamente",
       imageUrl:
         "https://raw.githubusercontent.com/vishalgaddam873/p5-multiplayer-car-race-game/master/assets/cup.png",
       imageSize: "100x100",
@@ -376,12 +376,12 @@ class Game {
 
   gameOver() {
     swal({
-      title: `Game Over`,
-      text: "Oops you lost the race....!!!",
+      title: `Fin del juego`,
+      text: "¡Ups!¡Perdiste la carrera!",
       imageUrl:
         "https://cdn.shopify.com/s/files/1/1061/1924/products/Thumbs_Down_Sign_Emoji_Icon_ios10_grande.png",
       imageSize: "100x100",
-      confirmButtonText: "Thanks For Playing"
+      confirmButtonText: "Gracias por jugar"
     });
   }
 }
